@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"></script>
+    <title>Example</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: black;
+        }
+        canvas {
+            width: 50vw;
+            height: 50vh;
+            display: block;
+
+        }
+    </style>
+</head>
+<body>
+<script type="module">
+  import * as THREE from 'https://cdn.skypack.dev/three@0.129.0/build/three.module.js';
+  import { OrbitControls } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js';
+  import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js';
+
+  let scene, camera, renderer, controls;
+
+  init();
+  animate();
+
+  function init() {
+
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xFFFFFF);
+
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+
+
+
+    renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    const spotLight = new THREE.SpotLight(0xffffff, 1);
+    const gui = new dat.GUI();
+
+    const loader = new GLTFLoader();
+    loader.load('ReefBreeders.gltf', (gltf) => {
+      gltf.scene.traverse((child) => {
+        if (child.isMesh && child.name.includes('IT60-LENS-3D-PMMA')) {
+
+          const emissiveMaterial = new THREE.MeshStandardMaterial({
+            color: 0xffffff,
+            emissive: randomThreeJsColor(),
+            emissiveIntensity: 0.5,
+          });
+
+          child.material = emissiveMaterial;
+
+          spotLight.position.copy(child.position);
+          spotLight.target = child;
+
+          const folderDoge = gui.addFolder( child.name );
+
+          folderDoge.addColor( { color: emissiveMaterial.color.getHex() }, 'color' ).onChange( ( value ) => {
+            emissiveMaterial.color.setHex(value);
+          } );
+          folderDoge.addColor( { emissive: emissiveMaterial.emissive.getHex() }, 'emissive' ).onChange( ( value ) => {
+            emissiveMaterial.emissive.setHex(value);
+          } );
+
+        }
+      });
+
+
+      scene.add(gltf.scene);
+
+
+    });
+
+    scene.add(spotLight);
+    document.body.appendChild(renderer.domElement);
+
+  }
+
+  function randomThreeJsColor() {
+    return new THREE.Color(Math.random(), Math.random(), Math.random());
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    controls.update(); // Update controls in the animation loop
+    renderer.render(scene, camera);
+  }
+
+
+
+
+</script>
+</body>
+</html>
