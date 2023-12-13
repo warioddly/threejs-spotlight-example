@@ -43,12 +43,17 @@
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
 
-    const spotLight = new THREE.SpotLight(0xffffff, 1);
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+    cube.position.set(0, -5, 0)
+    scene.add(cube);
+
     const gui = new dat.GUI();
 
     const loader = new GLTFLoader();
     loader.load('ReefBreeders.gltf', (gltf) => {
-      gltf.scene.traverse((child) => {
+      gltf.scene.traverse((child, index) => {
         if (child.isMesh && child.name.includes('IT60-LENS-3D-PMMA')) {
 
           const emissiveMaterial = new THREE.MeshStandardMaterial({
@@ -59,18 +64,19 @@
 
           child.material = emissiveMaterial;
 
-          spotLight.position.copy(child.position);
-          spotLight.target = child;
+          // const spotLight = new THREE.SpotLight(0xff0000, 1);
+          // spotLight.position.copy({...child.position, y: -2.5});
+          // spotLight.target = cube;
 
           const folderDoge = gui.addFolder( child.name );
 
           folderDoge.addColor( { emissive: emissiveMaterial.emissive.getHex() }, 'emissive' ).onChange( ( value ) => {
             emissiveMaterial.emissive.setHex(value);
           } );
+          // scene.add(spotLight);
 
         }
       });
-
       // Center the model in the scene
       const boundingBox = new THREE.Box3().setFromObject(gltf.scene);
       const center = new THREE.Vector3();
@@ -80,7 +86,6 @@
       scene.add(gltf.scene);
     });
 
-    scene.add(spotLight);
     document.body.appendChild(renderer.domElement);
 
   }
