@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cebdbe5-106c-48e3-ad8c-7fc5924b27e0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index2.html" beforeDir="false" afterPath="$PROJECT_DIR$/index2.html" afterDir="false" />
-    </list>
+    <list default="true" id="3cebdbe5-106c-48e3-ad8c-7fc5924b27e0" name="Changes" comment="[+] Add spotlight to spotligts" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,8 +90,17 @@
       <workItem from="1702450041557" duration="42000" />
       <workItem from="1702475606091" duration="12000" />
       <workItem from="1702484710938" duration="16100000" />
-      <workItem from="1702526344423" duration="2339000" />
+      <workItem from="1702526344423" duration="2548000" />
     </task>
+    <task id="LOCAL-00001" summary="[+] Add spotlight to spotligts">
+      <option name="closed" value="true" />
+      <created>1702528785379</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1702528785379</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,5 +116,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[+] Add spotlight to spotligts" />
+    <option name="LAST_COMMIT_MESSAGE" value="[+] Add spotlight to spotligts" />
   </component>
 </project>

@@ -54,7 +54,6 @@
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
 
-    scene.add( new THREE.HemisphereLight( 0xffffff, 0x8d8d8d, 0.15 ) );
 
     new PLYLoader().load( 'Lucy100k.ply', function ( geometry ) {
 
